@@ -446,10 +446,7 @@ const Dashboard = () => {
 
                             </div>
                         ))}
-
-                        <Cards />
                     </div>
-
                 </main>
                 <Footer />
             </div>
