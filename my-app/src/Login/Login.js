@@ -7,12 +7,46 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (username === '' || password === '') {
-            setError('Please fill in all fields');
-            return;
+    async function login(username, password) {
+        try {
+            const response = await fetch('http://localhost:8080/users/login',{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({username, password}),
+            });
+
+            const role = await response.text();
+
+            console.log("Role get: ", role);
+
+            return role;      
+        } catch(error){
+            console.error('Error logging in', error)
+            throw error;
         }
+    }
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try{
+            const role = await login(username, password);
+            console.log("Login as:", role);
+
+            if (role.match("student")) {
+                alert("Welcome, Student!");
+            } else if (role.match("admin")) {
+                alert("Welcome, Admin!");
+            } else if (role.match("teacher")){
+                alert("Welcome, Teacher!");
+            }
+        } catch(error){
+            console.error("Error happened", error)
+        }
+
         console.log('Logging in:', { username, password });
         setUsername('');
         setPassword('');
