@@ -281,6 +281,7 @@ import UpperLabel from '../Upperlabel/UpperLabel';
 import './dashboard.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { breadcrumbDashboard, systemTitle } from '../Constants/Const';
+import Cards from './DashboardCards';
 
 // Function to get a random color
 const getRandomColor = () => {
@@ -445,7 +446,10 @@ const Dashboard = () => {
 
                             </div>
                         ))}
+
+                        <Cards />
                     </div>
+
                 </main>
                 <Footer />
             </div>
