@@ -18,10 +18,24 @@ export const breadcrumbDashboard = [
     }
 ]
 
+export const breadcrumbCourses= [
+    {
+        label: 'Teacher',
+        sublabel: 'Courses'
+    }
+]
+
 export const breadcrumbCalendar = [
     {
         label: 'Teacher',
         sublabel: 'Calendar'
+    }
+]
+
+export const breadcrumbMessages = [
+    {
+        label: 'Teacher',
+        sublabel: 'Inbox Messages'
     }
 ]
 
