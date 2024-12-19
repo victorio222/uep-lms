@@ -68,6 +68,8 @@ import Messages from "./Messages/Messages";
 import Loading from "./components/Loading";
 import Spinner from "./components/Spinner";
 import Home from "./Course Menu/Home";
+import ManageAdmin from "./ManageAdmin/ManageAdmin"
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -93,6 +95,7 @@ function App() {
           <Route path="/messages" element={<Messages />} />
           <Route path="/login" element={<Login />} />
           <Route path="/course/:courseId/*" element={<Home />} />
+          <Route path="/manageadmin" element={<ManageAdmin />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       )}
