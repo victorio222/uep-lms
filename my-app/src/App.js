@@ -69,6 +69,7 @@ import Loading from "./components/Loading";
 import Spinner from "./components/Spinner";
 import Home from "./Course Menu/Home";
 import ManageAdmin from "./ManageAdmin/ManageAdmin"
+import About from './About/About';
 
 
 function App() {
@@ -97,6 +98,7 @@ function App() {
           <Route path="/course/:courseId/*" element={<Home />} />
           <Route path="/manageadmin" element={<ManageAdmin />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       )}
     </BrowserRouter>

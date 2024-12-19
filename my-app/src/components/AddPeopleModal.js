@@ -84,4 +84,5 @@ function AddPeopleModal({ isOpen, onClose, onAdd }) {
   );
 }
 
-export default AddPeopleModal;
+export default AddPeopleModal; 
+
