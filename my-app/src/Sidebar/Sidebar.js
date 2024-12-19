@@ -169,7 +169,7 @@ const Sidebar = () => {
                     </NavLink>
 
                     <NavLink
-                        to="/manage-admin"
+                        to="/manageadmin"
                         className={({ isActive }) =>
                             `flex items-center px-6 py-3 text-gray-400 transition-colors duration-100 transform ${isActive ? 'bg-gray-900' : 'hover:bg-gray-900'} dark:text-gray-400 dark:hover:bg-gray-800`}>
                         <svg
