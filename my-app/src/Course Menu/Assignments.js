@@ -160,6 +160,146 @@
 
 
 
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import { Plus, Trash, Check, EllipsisVertical } from "lucide-react";
+
+// // Modal component for adding a new assignment
+// function Modal({ isOpen, onClose, onSave }) {
+//     const [name, setName] = useState('');
+//     const [description, setDescription] = useState('');
+
+//     const handleSubmit = () => {
+//         if (!name || !description) {
+//             alert("Please fill in both name and description.");
+//             return;
+//         }
+//         onSave({ name, description, activityType: "Assignment" });
+//         setName('');
+//         setDescription('');
+//         onClose();
+//     };
+
+//     if (!isOpen) return null;
+
+//     return (
+//         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+//             <div className="bg-white p-6 rounded shadow-md w-96">
+//                 <h3 className="text-xl font-semibold mb-4">Add New Assignment</h3>
+//                 <input
+//                     className="w-full p-2 mb-3 border rounded"
+//                     type="text"
+//                     placeholder="Assignment Name"
+//                     value={name}
+//                     onChange={(e) => setName(e.target.value)}
+//                 />
+//                 <textarea
+//                     className="w-full p-2 mb-3 border rounded"
+//                     placeholder="Assignment Description"
+//                     value={description}
+//                     onChange={(e) => setDescription(e.target.value)}
+//                 />
+//                 <div className="flex justify-end gap-4">
+//                     <button onClick={onClose} className="bg-gray-300 p-2 rounded">Cancel</button>
+//                     <button onClick={handleSubmit} className="bg-blue-500 text-white p-2 rounded">Save</button>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
+// export default function Assignments() {
+//     const [assignments, setAssignments] = useState([]);
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+
+//     // Fetch assignments from backend
+//     useEffect(() => {
+//         fetchAssignments();
+//     }, []);
+
+//     const fetchAssignments = async () => {
+//         try {
+//             const response = await axios.get('http://localhost:8080/activities');
+//             // Filter to show only activities of type 'assignment'
+//             const assignments = response.data.filter(activity => activity.activityType === "Assignment");
+//             setAssignments(assignments);
+//         } catch (error) {
+//             console.error('Error fetching assignments:', error);
+//         }
+//     };
+
+//     // Add new assignment
+//     const handleAddAssignment = async (newAssignment) => {
+//         try {
+//             await axios.post('http://localhost:8080/activities/add', newAssignment);
+//             fetchAssignments(); // Refresh the list
+//         } catch (error) {
+//             console.error('Error adding assignment:', error);
+//         }
+//     };
+
+//     // Delete an assignment
+//     const handleDeleteAssignment = async (id) => {
+//         try {
+//             await axios.delete(`http://localhost:8080/activities/delete?id=${id}`);
+//             fetchAssignments(); // Refresh the list
+//         } catch (error) {
+//             console.error('Error deleting assignment:', error);
+//         }
+//     };
+
+//     return (
+//         <div className="mx-5">
+//             <div className="flex items-start mt-3">
+//                 <button
+//                     className="ml-2 w-64 h-9 rounded-sm p-2 text-sm flex items-center justify-center bg-blue-500 text-white"
+//                     onClick={() => setIsModalOpen(true)}
+//                 >
+//                     <Plus className="w-5 mr-2" />
+//                     <p>New Assignment</p>
+//                 </button>
+//             </div>
+
+//             <div className="mt-5">
+//                 <h1 className="text-left text-sm w-full p-3 bg-gray-200 font-semibold text-gray-700">Assignments</h1>
+//                 <div className="bg-white w-full p-3">
+//                     {assignments.map((assignment) => (
+//                         <div
+//                             key={assignment.id}
+//                             className="flex justify-between items-center p-3 mb-2 bg-gray-100 rounded shadow-md"
+//                         >
+//                             <div>
+//                                 <h4 className="font-bold">{assignment.name}</h4>
+//                                 <p>{assignment.activityDescription}</p>
+//                             </div>
+//                             <div>
+//                                 <button
+//                                     onClick={() => handleDeleteAssignment(assignment.activityId)}
+//                                     className="text-white bg-red-500 hover:bg-red-600 p-1 rounded-full"
+//                                 >
+//                                     <Trash className="w-5 h-5" />
+//                                 </button>
+//                             </div>
+//                         </div>
+//                     ))}
+//                     {assignments.length === 0 && (
+//                         <p className="text-gray-500">No assignments available.</p>
+//                     )}
+//                 </div>
+//             </div>
+
+//             {/* Modal for adding a new assignment */}
+//             <Modal
+//                 isOpen={isModalOpen}
+//                 onClose={() => setIsModalOpen(false)}
+//                 onSave={handleAddAssignment}
+//             />
+//         </div>
+//     );
+// }
+
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Plus, Trash, Check, EllipsisVertical } from "lucide-react";
@@ -208,23 +348,22 @@ function Modal({ isOpen, onClose, onSave }) {
     );
 }
 
-export default function Assignments() {
+export default function Assignments({ courseId }) {
     const [assignments, setAssignments] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Fetch assignments from backend
+    // Fetch assignments from backend when component mounts
     useEffect(() => {
         fetchAssignments();
-    }, []);
+    }, [courseId]);
 
     const fetchAssignments = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/activities');
-            // Filter to show only activities of type 'assignment'
-            const assignments = response.data.filter(activity => activity.activityType === "Assignment");
-            setAssignments(assignments);
+            // Fetch assignments from backend (filtered by courseId)
+            const response = await axios.get(`http://localhost:8080/activities/${courseId}/assignments`);
+            setAssignments(response.data);
         } catch (error) {
-            console.error('Error fetching assignments:', error);
+            console.error("Error fetching assignments:", error);
         }
     };
 
@@ -232,9 +371,9 @@ export default function Assignments() {
     const handleAddAssignment = async (newAssignment) => {
         try {
             await axios.post('http://localhost:8080/activities/add', newAssignment);
-            fetchAssignments(); // Refresh the list
+            fetchAssignments(); // Refresh the list after adding a new assignment
         } catch (error) {
-            console.error('Error adding assignment:', error);
+            console.error("Error adding assignment:", error);
         }
     };
 
@@ -242,9 +381,9 @@ export default function Assignments() {
     const handleDeleteAssignment = async (id) => {
         try {
             await axios.delete(`http://localhost:8080/activities/delete?id=${id}`);
-            fetchAssignments(); // Refresh the list
+            fetchAssignments(); // Refresh the list after deleting an assignment
         } catch (error) {
-            console.error('Error deleting assignment:', error);
+            console.error("Error deleting assignment:", error);
         }
     };
 
@@ -274,7 +413,7 @@ export default function Assignments() {
                             </div>
                             <div>
                                 <button
-                                    onClick={() => handleDeleteAssignment(assignment.activityId)}
+                                    onClick={() => handleDeleteAssignment(assignment.id)}
                                     className="text-white bg-red-500 hover:bg-red-600 p-1 rounded-full"
                                 >
                                     <Trash className="w-5 h-5" />

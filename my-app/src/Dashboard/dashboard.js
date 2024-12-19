@@ -775,7 +775,7 @@
 //             alert('Subject name cannot be empty!');
 //             return;
 //         }
-    
+
 //         try {
 //             const course = {
 //                 courseName: newSubject, // You can extend this to include other fields
@@ -783,7 +783,7 @@
 //                 startDate: '2024-01-01', // Default or dynamic value
 //                 endDate: '2024-12-31' // Default or dynamic value
 //             };
-    
+
 //             const response = await axios.post('http://localhost:8080/courses/add', course);
 //             alert(response.data); // Success message from backend
 //             fetchCourses(); // Reload the course list
@@ -793,7 +793,7 @@
 //             alert('An error occurred while adding the course.');
 //         }
 //     };
-    
+
 //     const handleDeleteCourse = async (id) => {
 //         try {
 //             await axios.delete(`http://localhost:8080/courses/delete?id=${id}`);
@@ -1346,7 +1346,6 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./dashboard.css";
@@ -1511,13 +1510,21 @@ const Dashboard = () => {
                                     type="text"
                                     value={newSubject}
                                     onChange={(e) => setNewSubject(e.target.value)}
-                                    placeholder="Enter subject name"
+                                    placeholder="Enter course name"
                                     className="p-2 border rounded w-full mb-4"
                                 />
-                                <div>
+                                <textarea
+                                cols={4}
+                                    type="text"
+                                    value={newSubject}
+                                    onChange={(e) => setNewSubject(e.target.value)}
+                                    placeholder="Enter course description"
+                                    className="p-2 border rounded w-full mb-4"
+                                />
+                                <div className="text-gray-700">
                                     <label
                                         htmlFor="teacher"
-                                        className="block text-sm font-medium text-gray-700 mb-1"
+                                        className="block text-sm font-medium mb-1"
                                     >
                                         Select Teacher:
                                     </label>
@@ -1560,34 +1567,34 @@ const Dashboard = () => {
 
                     {/* Display Courses */}
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-    {filteredSubjects.length > 0 ? (
-        filteredSubjects.map((subject) => (
-            <div
-                key={subject.courseId}
-                className="relative bg-white shadow-md text-center hover:shadow-lg transition-shadow duration-200"
-            >
-                <div
-                    className="h-24 flex items-center justify-center"
-                    style={{ backgroundColor: subject.color }}
-                ></div>
-                <p>{subject.courseDescription}</p>
-                <h4 className="p-3 text-md text-left font-normal text-gray-700">
-                    {subject.courseName}
-                </h4>
-                <button
-                    onClick={() => handleDeleteCourse(subject.courseId)}
-                    className="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 p-1 rounded-full"
-                >
-                    Delete
-                </button>
-            </div>
-        ))
-    ) : (
-        <p className="text-gray-500 text-center w-full col-span-full">
-            No available courses.
-        </p>
-    )}
-</div>
+                        {filteredSubjects.length > 0 ? (
+                            filteredSubjects.map((subject) => (
+                                <div
+                                    key={subject.courseId}
+                                    className="relative bg-white shadow-md text-center hover:shadow-lg transition-shadow duration-200"
+                                >
+                                    <div
+                                        className="h-24 flex items-center justify-center"
+                                        style={{ backgroundColor: subject.color }}
+                                    ></div>
+                                    <p>{subject.courseDescription}</p>
+                                    <h4 className="p-3 text-md text-left font-normal text-gray-700">
+                                        {subject.courseName}
+                                    </h4>
+                                    <button
+                                        onClick={() => handleDeleteCourse(subject.courseId)}
+                                        className="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 p-1 rounded-full"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-gray-500 text-center w-full col-span-full">
+                                No available courses.
+                            </p>
+                        )}
+                    </div>
 
                 </main>
                 <Footer />
