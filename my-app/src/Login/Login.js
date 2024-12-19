@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './Login.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     async function login(username, password) {
         try {
@@ -37,11 +40,15 @@ const Login = () => {
 
             if (role.match("student")) {
                 alert("Welcome, Student!");
+                navigate('/calendar');
             } else if (role.match("admin")) {
                 alert("Welcome, Admin!");
+                navigate('/messages');
             } else if (role.match("teacher")){
                 alert("Welcome, Teacher!");
+                navigate('/dashboard');
             }
+            
         } catch(error){
             console.error("Error happened", error)
         }
@@ -56,8 +63,8 @@ const Login = () => {
     return (
         <div className='login-container'>
             <div className='container'>
-                <header className='login-header'>
-                    <h1>admin panel</h1>
+                <header className='login-header text-center'>
+                    <h1>LOGIN</h1>
                     <p>Learning Management System - iLearn</p>
                 </header>
                 <form onSubmit={handleSubmit}>
