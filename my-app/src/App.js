@@ -67,6 +67,7 @@ import Calendar from "./Calendar/Calendar";
 import Messages from "./Messages/Messages";
 import Loading from "./components/Loading";
 import Spinner from "./components/Spinner";
+import Home from "./Course Menu/Home";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -91,6 +92,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/course/:courseId/*" element={<Home />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       )}
