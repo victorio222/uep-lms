@@ -1347,6 +1347,7 @@
 
 
 import React, { useState, useEffect } from "react";
+import { BookOpenIcon } from '@heroicons/react/24/solid';
 import axios from "axios";
 import "./dashboard.css";
 import Sidebar from "../Sidebar/Sidebar";
@@ -1432,15 +1433,24 @@ const Dashboard = () => {
         }
     };
 
-    const handleDeleteCourse = async (id) => {
+    const handleChangeStatus = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/courses/delete?id=${id}`);
+            const response = await axios.put(`http://localhost:8080/courses/${id}/update`);
+            alert(response.data);
             fetchCourses();
         } catch (error) {
-            console.error("Error deleting course:", error);
-            alert("An error occurred while deleting the course.");
+            console.error("Error changing status:", error);
+            alert("An error occurred while changing the course status.");
         }
     };
+
+    const courseStatusDisplay = (courseStatus) => {
+        if (courseStatus.toLowerCase() === "published"){
+            return "Unpublish"
+        } else{
+            return "Publish"
+        }
+    }
 
     return (
         <div className="flex h-screen">
@@ -1566,35 +1576,56 @@ const Dashboard = () => {
                     )}
 
                     {/* Display Courses */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-                        {filteredSubjects.length > 0 ? (
-                            filteredSubjects.map((subject) => (
-                                <div
-                                    key={subject.courseId}
-                                    className="relative bg-white shadow-md text-center hover:shadow-lg transition-shadow duration-200"
-                                >
-                                    <div
-                                        className="h-24 flex items-center justify-center"
-                                        style={{ backgroundColor: subject.color }}
-                                    ></div>
-                                    <p>{subject.courseDescription}</p>
-                                    <h4 className="p-3 text-md text-left font-normal text-gray-700">
-                                        {subject.courseName}
-                                    </h4>
-                                    <button
-                                        onClick={() => handleDeleteCourse(subject.courseId)}
-                                        className="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 p-1 rounded-full"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-gray-500 text-center w-full col-span-full">
-                                No available courses.
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+                    {filteredSubjects.length > 0 ? (
+                        filteredSubjects.map((subject) => (
+                        <div
+                            key={subject.courseId}
+                            className={`group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-1 ${
+                            subject.status === 'unpublished' ? 'opacity-50 grayscale' : '' // Dull appearance for unpublished
+                            }`} >
+
+                            <div
+                            className={`h-32 flex items-center justify-center ${
+                                subject.status === 'unpublished' ? 'saturate-50' : ''
+                            }`}
+                            style={{ backgroundColor: subject.color }}
+                            >
+                            <div className="circle group-hover:scale-110 group-hover:shadow-lg transition-transform duration-300">
+                                <span><BookOpenIcon className="w-6 h-6 text-white" /></span>
+                            </div>
+                            </div>
+                            <div className="p-4 group-hover:bg-gray-50 transition-colors duration-300">
+                            <h4 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                                {subject.courseName}
+                            </h4>
+                            <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                                {subject.courseDescription}
                             </p>
-                        )}
-                    </div>
+                            <button
+                                onClick={() => handleChangeStatus(subject.courseId)}
+                                className={`w-full py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 ${
+                                subject.status === 'active'
+                                    ? 'bg-green-500 hover:bg-green-600 text-white hover:shadow-md'
+                                    : subject.status === 'unpublished'
+                                    ? 'bg-gray-400 text-gray-600 hover:bg-gray-500 hover:shadow-md'
+                                    : 'bg-red-500 hover:bg-red-600 text-white hover:shadow-md'
+                                }`}
+                            >
+                                {courseStatusDisplay(subject.status)}
+                            </button>
+                            </div>
+                        </div>
+                        ))
+                    ) : (
+                        <div className="col-span-full flex justify-center items-center h-32">
+                        <p className="text-gray-500 text-center">
+                            No available courses.
+                        </p>
+                        </div>
+                    )}
+                </div>
+
 
                 </main>
                 <Footer />
