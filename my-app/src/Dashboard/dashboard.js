@@ -1583,8 +1583,8 @@ const Dashboard = () => {
                             key={subject.courseId}
                             className={`group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 ease-in-out hover:-translate-y-1 ${
                             subject.status === 'unpublished' ? 'opacity-50 grayscale' : '' // Dull appearance for unpublished
-                            }`}
-                        >
+                            }`} >
+
                             <div
                             className={`h-32 flex items-center justify-center ${
                                 subject.status === 'unpublished' ? 'saturate-50' : ''
