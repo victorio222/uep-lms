@@ -503,6 +503,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import UpperLabel from "../Upperlabel/UpperLabel";
 import { breadcrumbDashboard, systemTitle } from "../Constants/Const";
+import { useUser } from "../UserProvider/UserContext";
 
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(false); // Sidebar toggle
@@ -513,6 +514,7 @@ const Dashboard = () => {
     const [selectedTeacher, setSelectedTeacher] = useState("");
     const [filteredSubjects, setFilteredSubjects] = useState([]); // For search results
     const [searchQuery, setSearchQuery] = useState("");
+    const {user} = useUser();
 
     const menu = () => {
         setIsOpen(!isOpen);
@@ -525,7 +527,7 @@ const Dashboard = () => {
 
     const fetchCourses = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/courses");
+            const response = await axios.get(`http://localhost:8080/teachers/${user.userId}/courses`);
             setSubjects(response.data);
             setFilteredSubjects(response.data); // Initialize filtered list
         } catch (error) {
