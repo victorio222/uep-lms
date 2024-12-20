@@ -59,7 +59,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login/Login";
 import Dashboard from "./Dashboard/dashboard";
 import Course from "./Courses/Course";
@@ -68,9 +68,11 @@ import Messages from "./Messages/Messages";
 import Loading from "./components/Loading";
 import Spinner from "./components/Spinner";
 import Home from "./Course Menu/Home";
-import ManageAdmin from "./ManageAdmin/ManageAdmin"
+import { UserProvider } from './UserProvider/UserContext'; // Import UserProvider
+import ManageAdmin from "./ManageAdmin/ManageAdmin";
 import About from './About/About';
-
+import StudentDashboard from './Dashboard/StudentDashboard';
+import StudentCourse from './Courses/StudentCourse';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -85,23 +87,27 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      {loading ? (
-        <Spinner />
-      ) : ( 
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/course/*" element={<Course />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/course/:courseId/*" element={<Home />} />
-          <Route path="/manageadmin" element={<ManageAdmin />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      )}
-    </BrowserRouter>
+    <UserProvider> {/* Wrap the routes with UserProvider */}
+      <Router>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/course/*" element={<Course />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/course/:courseId/*" element={<Home />} />
+            <Route path="/manageadmin" element={<ManageAdmin />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/studentCourse" element={<StudentCourse />} />
+          </Routes>
+        )}
+      </Router>
+    </UserProvider>
   );
 }
 
