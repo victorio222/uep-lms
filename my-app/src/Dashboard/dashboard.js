@@ -514,6 +514,10 @@ const Dashboard = () => {
     const [filteredSubjects, setFilteredSubjects] = useState([]); // For search results
     const [searchQuery, setSearchQuery] = useState("");
 
+    const menu = () => {
+        setIsOpen(!isOpen);
+      };
+
     useEffect(() => {
         fetchCourses();
         fetchTeachers();
@@ -611,28 +615,56 @@ const Dashboard = () => {
           </div>
       
           <div className={`main ${isOpen ? "open" : "closed"} flex-1 flex flex-col`}>
-            <header className="sticky top-0 z-10 bg-gray-800 text-white shadow p-2 pl-5 flex items-center justify-between">
-              {systemTitle.map((title) => (
-                <div key={title.title} className="flex items-center justify-center">
-                  <svg
-                    className="size-6 w-5 cursor-pointer"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    onClick={() => setIsOpen(!isOpen)}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                    />
-                  </svg>
-                  <h2 className="text-medium font-semibold pl-4">{title.title}</h2>
-                </div>
-              ))}
-            </header>
+            {/* Header */}
+                    <header className="sticky top-0 z-10 bg-gray-800 text-white shadow px-5 py-2 flex items-center justify-between">
+                      {systemTitle.map((title) => (
+                        <div key={title.title} className="flex items-center justify-center">
+                          <svg
+                            className="size-6 w-5 cursor-pointer"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            onClick={menu}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                            />
+                          </svg>
+                          <h2 className="text-medium font-semibold pl-2">{title.title}</h2>
+                        </div>
+                      ))}
+            
+                      <div className="flex items-center">
+                        <svg
+                          className="size-6 w-7 cursor-pointer pr-2"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+                          />
+                        </svg>
+                        <div className="flex items-center pl-1 pr-3 cursor-pointer">
+                          <p className="text-sm pr-2">Cabatingan, Victorio Jr F.</p>
+                          <div className="w-10 h-10 rounded-full">
+                            <img
+                              className="object-cover w-10 h-10 rounded-full"
+                              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                              alt="Avatar"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </header>
       
             {/* Breadcrumb */}
          <div className="bg-gray-200 border-b-2 dark:bg-gray-800">
