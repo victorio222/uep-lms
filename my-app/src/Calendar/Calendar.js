@@ -885,8 +885,7 @@ const Calendar = () => {
                     </div>
                 </main>
 
-                {/* Footer */}
-                <Footer />
+              
             </div>
         </div>
     );

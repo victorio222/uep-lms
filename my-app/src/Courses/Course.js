@@ -701,8 +701,7 @@ const Course = () => {
           </>
         )}
 
-        {/* Footer */}
-        <Footer />
+        
       </div>
     </div>
   );
