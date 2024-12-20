@@ -69,11 +69,7 @@ const StudentSidebar = () => {
                     </NavLink>
 
                     <NavLink
-<<<<<<< HEAD
                         to= "/studentabout"
-=======
-                        to= "/studentAbout"
->>>>>>> c05c81abc4feb026ab08234a2959a593e84ac272
                         className={({ isActive }) =>
                             `flex items-center px-6 py-3 text-gray-400 transition-colors duration-100 transform ${isActive ? 'bg-gray-900' : 'hover:bg-gray-900'} dark:text-gray-400 dark:hover:bg-gray-800`}>
                         <svg
