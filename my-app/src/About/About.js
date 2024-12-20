@@ -129,7 +129,6 @@ const About = () => {
             </div>
           ))}
         </div>
-
         {/* Content Section */}
         <section
           className="flex flex-col md:flex-row"
