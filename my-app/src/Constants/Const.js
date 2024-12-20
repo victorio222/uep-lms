@@ -39,6 +39,14 @@ export const breadcrumbMessages = [
     }
 ]
 
+
+export const breadcrumbManageAdmin = [
+    {
+        label: 'Admin',
+        sublabel: 'Manage Admin'
+    }
+]
+
 export const card = [
     {
         cardName: 'Total Employees',
