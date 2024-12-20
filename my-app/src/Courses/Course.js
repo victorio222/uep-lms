@@ -591,7 +591,7 @@ const Course = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
-  const {user} = useUser;
+  const {user} = useUser();
 
   const menu = () => setIsOpen(!isOpen);
 
