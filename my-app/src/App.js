@@ -22,7 +22,6 @@ import StudentModules from "./Course Menu/StudentModules";
 import StudentCalendar from "./Calendar/StudentCalendar";
 import StudentAbout from "./About/StudentAbout";
 import AdminAbout from './About/AdminAbout'
-
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -58,9 +57,8 @@ function App() {
             {/* Student Routes */}
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/studentCourse" element={<StudentCourse />} />
-            <Route path="/studentModules" element={<StudentModules />} />
-            <Route path="/studentCalendar" element={<StudentCalendar />} />
-            <Route path="/studentAbout" element={<StudentAbout />} />
+            <Route path="/studentabout" element={<StudentAbout />} />
+
 
             {/* Default routes */}
             <Route path="*" element={<Navigate to="/dashboard" replace />} />

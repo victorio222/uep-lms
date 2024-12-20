@@ -4,7 +4,11 @@ import Footer from "../Footer/Footer";
 import UpperLabel from "../Upperlabel/UpperLabel";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { breadcrumbAbout, breadcrumbDashboard, systemTitle } from "../Constants/Const";
+<<<<<<< HEAD
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+=======
 import { BrowserRouter as Router, Routes, Route, Navigate, NavLink } from "react-router-dom";
+>>>>>>> c05c81abc4feb026ab08234a2959a593e84ac272
 import Home from "../Course Menu/Home";
 import Announcements from "../Course Menu/Announcements";
 import Assignments from "../Course Menu/Assignments";
@@ -30,7 +34,11 @@ const StudentAbout = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+<<<<<<< HEAD
+        <StudentSidebar />
+=======
       <StudentSidebar />
+>>>>>>> c05c81abc4feb026ab08234a2959a593e84ac272
       </div>
 
       {/* Main Content */}
@@ -120,11 +128,20 @@ const StudentAbout = () => {
                 </svg>
               </span>
 
+<<<<<<< HEAD
+              <a
+                href="dashboard.js"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                {label.sublabel}
+              </a>
+=======
               <NavLink to="/about"
                 className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
               >
                 {label.sublabel}
               </NavLink>
+>>>>>>> c05c81abc4feb026ab08234a2959a593e84ac272
             </div>
           ))}
         </div>
