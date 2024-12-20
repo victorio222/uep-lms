@@ -530,7 +530,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import UpperLabel from "../Upperlabel/UpperLabel";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { systemTitle } from "../Constants/Const";
+import { breadcrumbCourses, systemTitle } from "../Constants/Const";
 import { Routes, Route, Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
 import Home from "../Course Menu/Home";
 import Announcements from "../Course Menu/Announcements";
@@ -543,6 +543,8 @@ import Modules from "../Course Menu/Modules";
 import Syllabus from "../Course Menu/Syllabus";
 import Grades from "../Course Menu/Grades";
 import axios from "axios";
+import { ChevronRight, Slash, SlashIcon, SlashSquareIcon } from "lucide-react";
+import { useUser } from "../UserProvider/UserContext";
 
 // Subject Details Component
 const SubjectDetails = ({ subjectId }) => {
@@ -589,6 +591,7 @@ const Course = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
+  const {user} = useUser;
 
   const menu = () => setIsOpen(!isOpen);
 
@@ -596,7 +599,7 @@ const Course = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/courses");
+        const response = await axios.get(`http://localhost:8080/teachers/${user.userId}/courses`);
         setSubjects(response.data);
       } catch (error) {
         console.error("Error fetching subjects:", error);
@@ -625,36 +628,110 @@ const Course = () => {
         <header className="sticky top-0 z-10 bg-gray-800 text-white shadow p-2 pl-5 flex items-center justify-between">
           {systemTitle.map((title) => (
             <div key={title.title} className="flex items-center justify-center">
-              <svg className="size-6 w-5 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={menu}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              <svg
+                className="size-6 w-5 cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                onClick={menu}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
               </svg>
               <h2 className="text-medium font-semibold pl-4">{title.title}</h2>
             </div>
           ))}
         </header>
 
+        {/* Breadcrumb */}
+        <div className="bg-gray-200 border-b-2 dark:bg-gray-800">
+          {breadcrumbCourses.map((label) => (
+            <div
+              key={label.label}
+              className="bg-white border-t flex items-center px-6 py-4 mx-auto overflow-x-auto whitespace-nowrap"
+            >
+              <p className="pr-10 text-sm">{label.label}</p>
+              <a href="#" className="text-gray-600 dark:text-gray-200">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                </svg>
+              </a>
+
+              <span className="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+
+              <NavLink to="/course"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                {label.sublabel}
+              </NavLink>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between border-b-1 bg-white shadow-sm p-1 pl-6 pr-6 mb-2">
+            <h1 className="text-sm p-2 flex items-center">All Courses <ChevronRight /> Select a subject</h1>
+        </div>
+
         {/* Subject List Page */}
         {!selectedSubject && (
-          <div className="flex-1 flex flex-col items-center justify-center bg-white p-4">
-            <h2 className="text-2xl font-semibold mb-4">Select a Subject</h2>
-            <ul className="space-y-2">
+          <div className="flex-1 flex flex-col items-start justify-start p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
               {subjects.length > 0 ? (
                 subjects.map((subject) => (
-                  <li key={subject.courseId} className="p-2 text-center border-b cursor-pointer hover:bg-gray-200" onClick={() => handleSubjectSelect(subject)}>
-                    {subject.courseDescription}
-                  </li>
+                  <div
+                    key={subject.courseId}
+                    className="relative bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-500 ease-in-out cursor-pointer group"
+                    onClick={() => handleSubjectSelect(subject)}
+                  >
+                    {/* Text Effects */}
+                    <h3 className="relative text-2xl font-semibold text-gray-800 z-10 group-hover:text-blue-600 transition-all duration-300 group-hover:scale-105 transform">
+                      {subject.courseName}
+                    </h3>
+
+                    {/* Interactive Text Shadow & Hover Effects */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                    </div>
+
+                    {/* Text Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 opacity-20 group-hover:opacity-40 rounded-lg transition-all duration-300"></div>
+                  </div>
                 ))
               ) : (
-                <p>Loading subjects...</p>
+                <p className="text-gray-700">Loading subjects...</p>
               )}
-            </ul>
+            </div>
           </div>
         )}
+
+        
 
         {/* Main Page Content for the selected subject */}
         {selectedSubject && (
           <>
-            <UpperLabel />
             <section className="flex bg-gray-50" style={{ height: "calc(100vh - 4rem - 2rem)" }}>
               <div className="bg-white">
                 <nav className="text-left p-2 text-md">
@@ -674,7 +751,12 @@ const Course = () => {
                       <NavLink
                         to={`/course/${selectedSubject.courseDescription}/${item.path}`}
                         key={item.path}
-                        className={({ isActive }) => `p-2 block ${isActive ? "text-blue-500 underline font-semibold" : "hover:text-blue-500 hover:underline"}`}
+                        className={({ isActive }) =>
+                          `p-2 block ${isActive
+                            ? "text-blue-500 underline font-semibold"
+                            : "hover:text-blue-500 hover:underline"
+                          }`
+                        }
                       >
                         <li>{item.name}</li>
                       </NavLink>
@@ -705,7 +787,7 @@ const Course = () => {
         <Footer />
       </div>
     </div>
+
   );
 };
-
 export default Course;

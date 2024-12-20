@@ -39,6 +39,20 @@ export const breadcrumbMessages = [
     }
 ]
 
+export const breadcrumbAbout = [
+    {
+        label: 'Teacher',
+        sublabel: 'About LMS'
+    }
+];
+
+export const breadcrumbManageAdmin = [
+    {
+        label: 'Admin',
+        sublabel: 'Manage Admin'
+    }
+]
+
 export const card = [
     {
         cardName: 'Total Employees',
