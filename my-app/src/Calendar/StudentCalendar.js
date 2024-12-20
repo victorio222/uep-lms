@@ -154,7 +154,7 @@ const StudentCalendar = () => {
                         </div>
                     ))}
                 </header>
-                
+
 
                 {/* Breadcrumb part */}
                 <div className="bg-gray-200 border-b-2 dark:bg-gray-800">
@@ -189,8 +189,6 @@ const StudentCalendar = () => {
                                 {label.sublabel}
                             </NavLink>
                         </div>
-
-                        
                     ))}
                 </div>
 
