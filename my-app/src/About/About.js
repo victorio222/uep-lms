@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import UpperLabel from "../Upperlabel/UpperLabel";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { breadcrumbDashboard, systemTitle } from "../Constants/Const";
+import { breadcrumbAbout, breadcrumbDashboard, systemTitle } from "../Constants/Const";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../Course Menu/Home";
 import Announcements from "../Course Menu/Announcements";
@@ -36,7 +36,7 @@ const About = () => {
       {/* Main Content */}
       <div className={`main ${isOpen ? "open" : "closed"} flex-1 flex flex-col`}>
         {/* Header */}
-        <header className="sticky top-0 z-10 bg-gray-800 text-white shadow p-1 pl-2 flex items-center justify-between">
+        <header className="sticky top-0 z-10 bg-gray-800 text-white shadow px-5 py-2 flex items-center justify-between">
           {systemTitle.map((title) => (
             <div key={title.title} className="flex items-center justify-center">
               <svg
@@ -88,12 +88,12 @@ const About = () => {
 
         {/* Breadcrumb */}
         <div className="bg-gray-200 border-b-2 dark:bg-gray-800">
-          {breadcrumbDashboard.map((label) => (
+           {breadcrumbAbout.map((label) => (
             <div
               key={label.label}
-              className="bg-white border-t flex items-center px-2 py-2 mx-auto overflow-x-auto whitespace-nowrap"
+              className="bg-white border-t flex items-center px-6 py-4 mx-auto overflow-x-auto whitespace-nowrap"
             >
-              <p className="pr-8 text-sm">{label.label}</p>
+              <p className="pr-10 text-sm">{label.label}</p>
               <a href="#" className="text-gray-600 dark:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ const About = () => {
                 </svg>
               </a>
 
-              <span className="mx-4 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+              <span className="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4"

@@ -94,8 +94,10 @@
 import React, { useEffect } from "react";
 import { NavLink, useLocation } from 'react-router-dom';
 import '../Dashboard/dashboard.css';
+import { useUser } from "../UserProvider/UserContext";
 
 const Sidebar = () => {
+    const {user} = useUser();
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
@@ -109,7 +111,7 @@ const Sidebar = () => {
             <div className="flex flex-col items-center mt-4 mx-2">
                 <img className="object-cover w-16 h-16 mx-2 rounded-full ring ring-gray-700" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Avatar" />
                 <h4 className="antialiased text-sm mx-2 mt-2 font-medium text-gray-300 dark:text-gray-200">TEACHER</h4>
-                <p className="mx-2 mt-1 text-xs font-medium text-gray-400 dark:text-gray-400">Teacher's Name</p>
+                <p className="mx-2 mt-1 text-xs font-medium text-gray-400 dark:text-gray-400">{user.firstName} {user.middleName} {user.lastName} {user.suffix}</p>
             </div>
 
             <div className="relative flex flex-col justify-between flex-1 mt-6 text-xs">
