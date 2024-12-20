@@ -86,7 +86,7 @@ const StudentCourse = () => {
   // Navigate when a subject is selected
   const handleSubjectSelect = (subject) => {
     setSelectedSubject(subject);
-    navigate(`/course/${subject.courseId}/home`);
+    navigate(`/studentcourse/${subject.courseId}/home`);
   };
 
   return (
@@ -187,12 +187,9 @@ const StudentCourse = () => {
                       { name: "Announcements", path: "announcements" },
                       { name: "Assignments", path: "assignments" },
                       { name: "Quizzes", path: "quizzes" },
-                      { name: "Discussions", path: "discussions" },
-                      { name: "Grades", path: "grades" },
                       { name: "People", path: "people" },
                       { name: "Syllabus", path: "syllabus" },
                       { name: "Modules", path: "modules" },
-                      { name: "Settings", path: "settings" },
                     ].map((item) => (
                       <NavLink
                         to={`/course/${selectedSubject.courseDescription}/${item.path}`}

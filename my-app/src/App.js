@@ -14,9 +14,14 @@ import About from './About/About';
 import Announcements from "./Course Menu/Announcements";
 import Assignments from "./Course Menu/Assignments";
 import Modules from "./Course Menu/Modules";
+
+// Student Routes
 import StudentDashboard from './Dashboard/StudentDashboard';
 import StudentCourse from './Courses/StudentCourse';
-
+import StudentModules from "./Course Menu/StudentModules";
+import StudentCalendar from "./Calendar/StudentCalendar";
+import StudentAbout from "./About/StudentAbout";
+import AdminAbout from './About/AdminAbout'
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -47,10 +52,13 @@ function App() {
             <Route path="/courses/:courseId/assignments/:assignmentId" element={<Assignments />} />
             <Route path="/courses/:courseId/materials/:materialId" element={<Modules />} />
             <Route path="/manageadmin" element={<ManageAdmin />} />
+            <Route path="/adminAbout" element={<AdminAbout />} />
             
             {/* Student Routes */}
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/studentCourse" element={<StudentCourse />} />
+            <Route path="/studentabout" element={<StudentAbout />} />
+
 
             {/* Default routes */}
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
