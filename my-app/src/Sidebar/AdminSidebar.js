@@ -43,7 +43,7 @@ const AdminSidebar = () => {
                         className={({ isActive }) =>
                             `flex items-center px-6 py-3 text-gray-400 transition-colors duration-100 transform ${isActive ? 'bg-gray-900' : 'hover:bg-gray-900'} dark:text-gray-400 dark:hover:bg-gray-800`}>
                         <svg
-                            className="w-6 h-6"
+                            className="w-4 h-4"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
