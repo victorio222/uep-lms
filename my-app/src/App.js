@@ -70,6 +70,9 @@ import Spinner from "./components/Spinner";
 import Home from "./Course Menu/Home";
 import ManageAdmin from "./ManageAdmin/ManageAdmin"
 import About from './About/About';
+import Announcements from "./Course Menu/Announcements";
+import Assignments from "./Course Menu/Assignments";
+import Modules from "./Course Menu/Modules";
 
 
 function App() {
@@ -96,6 +99,11 @@ function App() {
           <Route path="/messages" element={<Messages />} />
           <Route path="/login" element={<Login />} />
           <Route path="/course/:courseId/*" element={<Home />} />
+
+          <Route path="/courses/:courseId/announcements/:announcementId" element={<Announcements />} />
+                <Route path="/courses/:courseId/assignments/:assignmentId" element={<Assignments />} />
+                <Route path="/courses/:courseId/materials/:materialId" element={<Modules />} />
+
           <Route path="/manageadmin" element={<ManageAdmin />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
           <Route path="/about" element={<About />} />

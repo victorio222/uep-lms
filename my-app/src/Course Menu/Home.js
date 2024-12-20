@@ -775,6 +775,7 @@ const Home = () => {
             There’s nothing here yet. As you participate in your courses, this stream will update with messages from discussions, grades, private chats, and other notifications.
           </p>
         </div>
+        
       ) : (
         <div className="px-3">
           <h2 className="text-xl font-bold mt-4 capitalize">Announcements</h2>
