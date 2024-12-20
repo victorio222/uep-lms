@@ -14,8 +14,13 @@ import About from './About/About';
 import Announcements from "./Course Menu/Announcements";
 import Assignments from "./Course Menu/Assignments";
 import Modules from "./Course Menu/Modules";
+
+// Student Routes
 import StudentDashboard from './Dashboard/StudentDashboard';
 import StudentCourse from './Courses/StudentCourse';
+import StudentModules from "./Course Menu/StudentModules";
+import StudentCalendar from "./Calendar/StudentCalendar";
+import StudentAbout from "./About/StudentAbout";
 import AdminAbout from './About/AdminAbout'
 import StudentAbout from "./About/StudentAbout";
 
@@ -54,8 +59,14 @@ function App() {
             {/* Student Routes */}
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/studentCourse" element={<StudentCourse />} />
+<<<<<<< HEAD
             <Route path="/studentabout" element={<StudentAbout />} />
 
+=======
+            <Route path="/studentModules" element={<StudentModules />} />
+            <Route path="/studentCalendar" element={<StudentCalendar />} />
+            <Route path="/studentAbout" element={<StudentAbout />} />
+>>>>>>> c05c81abc4feb026ab08234a2959a593e84ac272
 
             {/* Default routes */}
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
