@@ -680,12 +680,11 @@ const Course = () => {
                 </svg>
               </span>
 
-              <a
-                href="dashboard.js"
+              <NavLink to="/course"
                 className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
               >
                 {label.sublabel}
-              </a>
+              </NavLink>
             </div>
           ))}
         </div>
