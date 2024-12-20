@@ -25,6 +25,8 @@ import AdminAbout from './About/AdminAbout'
 function App() {
   const [loading, setLoading] = useState(true);
 
+ 
+
   useEffect(() => {
     // Simulate loading time (e.g., fetching data or other tasks)
     const timer = setTimeout(() => {

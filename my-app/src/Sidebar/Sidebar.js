@@ -102,6 +102,8 @@ const Sidebar = () => {
 
     const isActive = (path) => location.pathname === path;
 
+    // Handle null user gracefully
+
     return (
         <aside className={`sidebar flex flex-col w-60 h-screen py-4 bg-gray-800 overflow-y-auto border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700`}>
             <a href="#" className="mx-auto">

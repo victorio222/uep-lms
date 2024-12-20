@@ -1387,7 +1387,9 @@ import "./dashboard.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import UpperLabel from "../Upperlabel/UpperLabel";
-import { systemTitle } from "../Constants/Const";
+import { breadcrumbDashboard, systemTitle } from "../Constants/Const";
+import { useUser } from "../UserProvider/UserContext"; // Adjust the path as needed
+
 
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(false); // Sidebar toggle
@@ -1726,5 +1728,5 @@ const Dashboard = () => {
       );
 };
 
-
+export default Dashboard;
 

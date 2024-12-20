@@ -1,22 +1,20 @@
-// src/UserContext.js
 import React, { createContext, useState, useContext } from 'react';
 
-// Create the UserContext with default value as null (no user)
+// Create the UserContext
 const UserContext = createContext(null);
 
-// Custom hook to use UserContext in any component
+// Custom hook to use the UserContext
 export const useUser = () => {
-  return useContext(UserContext);
+    return useContext(UserContext);
 };
 
-// UserProvider component to provide user data to the app
+// UserProvider to wrap the app
 export const UserProvider = ({ children }) => {
-  // State to hold user data
-  const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+    return (
+        <UserContext.Provider value={{ user, setUser }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
