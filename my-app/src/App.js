@@ -17,6 +17,7 @@ import Modules from "./Course Menu/Modules";
 import StudentDashboard from './Dashboard/StudentDashboard';
 import StudentCourse from './Courses/StudentCourse';
 import AdminAbout from './About/AdminAbout'
+import StudentAbout from "./About/StudentAbout";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -53,6 +54,8 @@ function App() {
             {/* Student Routes */}
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/studentCourse" element={<StudentCourse />} />
+            <Route path="/studentabout" element={<StudentAbout />} />
+
 
             {/* Default routes */}
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
