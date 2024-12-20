@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Login.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserProvider/UserContext'
 
 const Login = () => {
+    const {setUser} = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -20,11 +22,11 @@ const Login = () => {
                 body: JSON.stringify({username, password}),
             });
 
-            const role = await response.text();
+            const user = await response.json();
 
-            console.log("Role get: ", role);
+            console.log("Role get: ", user);
 
-            return role;      
+            return user;      
         } catch(error){
             console.error('Error logging in', error)
             throw error;
@@ -35,12 +37,15 @@ const Login = () => {
         e.preventDefault();
 
         try{
-            const role = await login(username, password);
+            const user = await login(username, password);
+            const role = user.role
             console.log("Login as:", role);
-
             if (role.match("student")) {
+                
+                console.log("user", JSON.stringify(user))
                 alert("Welcome, Student!");
-                navigate('/calendar');
+                setUser(user);
+                navigate('/student', { state: {user}});
             } else if (role.match("admin")) {
                 alert("Welcome, Admin!");
                 navigate('/messages');
@@ -49,14 +54,15 @@ const Login = () => {
                 navigate('/dashboard');
             }
             
-        } catch(error){
-            console.error("Error happened", error)
-        }
-
         console.log('Logging in:', { username, password });
         setUsername('');
         setPassword('');
         setError('');
+            
+        } catch(error){
+            console.error("Error happened", error)
+        }
+
     };
 
     

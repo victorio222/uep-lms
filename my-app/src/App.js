@@ -1,65 +1,5 @@
-// import './App.css';
-// import Login from './Login/Login';
-// import Dashboard from './Dashboard/dashboard';
-// import Calendar from './Calendar/Calendar'
-// import Course from './Courses/Course';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <div>
-//         <Dashboard />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
-// import React, { Suspense } from "react";
-// import { BrowserRouter as BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import Login from "./Login/Login";
-// import Dashboard from "./Dashboard/dashboard";
-// import Course from "./Courses/Course";
-// import Calendar from "./Calendar/Calendar"
-// import LoadingSpinner from "./components/LoadingSpinner.Js";
-
-
-// function App() {
-//   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-
-//   return (
-//     <BrowserRouter>
-//       <Suspense fallback={<LoadingSpinner />}>
-//       <Routes>
-//         <Route path="/dashboard" element={<Dashboard setIsAuthenticated={setIsAuthenticated} />} />
-//         <Route
-//           path="/dashboard"
-//           element={
-//             isAuthenticated ? (
-//               <Dashboard />
-//             ) : (
-//               <Navigate to="/login" replace />
-//             )
-//           }
-//         />
-//         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-//         <Route path="/course/*" element={<Course />} />
-//         <Route path="/calendar" element={<Calendar />} />
-//         {/* <Route path="/course" element={<Course />} /> */}
-//         <Route path="*" element={<Navigate to="/dashboard" replace />} />
-//       </Routes>
-//       </Suspense>
-//     </BrowserRouter>
-//   );
-// }
-
-// export default App;
-
-
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login/Login";
 import Dashboard from "./Dashboard/dashboard";
 import Course from "./Courses/Course";
@@ -68,12 +8,14 @@ import Messages from "./Messages/Messages";
 import Loading from "./components/Loading";
 import Spinner from "./components/Spinner";
 import Home from "./Course Menu/Home";
-import ManageAdmin from "./ManageAdmin/ManageAdmin"
+import { UserProvider } from './UserProvider/UserContext'; // Import UserProvider
+import ManageAdmin from "./ManageAdmin/ManageAdmin";
 import About from './About/About';
 import Announcements from "./Course Menu/Announcements";
 import Assignments from "./Course Menu/Assignments";
 import Modules from "./Course Menu/Modules";
-
+import StudentDashboard from './Dashboard/StudentDashboard';
+import StudentCourse from './Courses/StudentCourse';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -88,28 +30,35 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      {loading ? (
-        <Spinner />
-      ) : ( 
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/course/*" element={<Course />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/course/:courseId/*" element={<Home />} />
+    <UserProvider> {/* Wrap the routes with UserProvider */}
+      <Router>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Routes>
+            {/* Admin/Teacher Routes */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/course/*" element={<Course />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/course/:courseId/*" element={<Home />} />
+            <Route path="/courses/:courseId/announcements/:announcementId" element={<Announcements />} />
+            <Route path="/courses/:courseId/assignments/:assignmentId" element={<Assignments />} />
+            <Route path="/courses/:courseId/materials/:materialId" element={<Modules />} />
+            <Route path="/manageadmin" element={<ManageAdmin />} />
+            
+            {/* Student Routes */}
+            <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/studentCourse" element={<StudentCourse />} />
 
-          <Route path="/courses/:courseId/announcements/:announcementId" element={<Announcements />} />
-                <Route path="/courses/:courseId/assignments/:assignmentId" element={<Assignments />} />
-                <Route path="/courses/:courseId/materials/:materialId" element={<Modules />} />
-
-          <Route path="/manageadmin" element={<ManageAdmin />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      )}
-    </BrowserRouter>
+            {/* Default routes */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        )}
+      </Router>
+    </UserProvider>
   );
 }
 
