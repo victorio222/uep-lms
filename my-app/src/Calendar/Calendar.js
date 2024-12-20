@@ -595,6 +595,7 @@ import Footer from '../Footer/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { breadcrumbCalendar, systemTitle } from '../Constants/Const';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -774,9 +775,9 @@ const Calendar = () => {
                                 </svg>
                             </span>
 
-                            <a href="dashboard.js" className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                            <NavLink to="/calendar" className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
                                 {label.sublabel}
-                            </a>
+                            </NavLink>
                         </div>
 
                         
