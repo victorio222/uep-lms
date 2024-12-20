@@ -544,6 +544,7 @@ import Syllabus from "../Course Menu/Syllabus";
 import Grades from "../Course Menu/Grades";
 import axios from "axios";
 import { ChevronRight, Slash, SlashIcon, SlashSquareIcon } from "lucide-react";
+import { useUser } from "../UserProvider/UserContext";
 
 // Subject Details Component
 const SubjectDetails = ({ subjectId }) => {
@@ -590,6 +591,7 @@ const Course = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
+  const {user} = useUser();
 
   const menu = () => setIsOpen(!isOpen);
 
@@ -597,7 +599,7 @@ const Course = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/courses");
+        const response = await axios.get(`http://localhost:8080/teachers/${user.userId}/courses`);
         setSubjects(response.data);
       } catch (error) {
         console.error("Error fetching subjects:", error);
